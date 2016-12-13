@@ -16,7 +16,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<title>ICS to JSON</title>
+<title>Crénaux de soutenance</title>
 </head>
 
 
@@ -24,23 +24,12 @@
 
 
 <body>
-<!-- INPUT -->
-<div class="container">
-   <legend> Convertir un fichier ICS en un tableau JSON</legend>
-   <label for="icsData" class="control-label">Données ICS à convertir</label>
-   <textarea class="form-control" id="icsData" rows="15">données ICS ici</textarea>
-   <BR/>
-   <button id="convertir" class="btn btn-primary">Convertir !</button>
+<div class="container" id="container">
+	<legend>Planning des soutenances</legend>
+
+
 </div>
 
-<div class="container">
-   <label for="jsonData" class="control-label">Résultat en JSON</label>
-   <textarea class="form-control" id="jsonData" rows="15" readonly="true">données JSON ici</textarea>
-   <BR/>
-</div>
-
-
-<script type="text/javascript" src="convert.js"></script>
-
+<script type="text/javascript" src="tableau.js"></script>
+<script type="text/javascript" src="affichage.js"></script>
 </body>
-</htmL>

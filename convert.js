@@ -1,42 +1,47 @@
 
+class Conversion {
 
-Conversion = {
+	constructor(source, cible) {
+		this.source = document.getElementById(source);
+		this.cible = document.getElementById(cible);
+		this.json = [];
+	}
 
-	_json : "",
 
 
-	convertLine : function(line) {
-		if (line.indexOf(":") != -1) {
-			champs = line.split(":");
-			this._json += '\t"'+ champs[0] + '" : "' + champs[1] + (line.includes("END:VEVENT") ? '"\n' : '",\n');
-		}
-	},
-
-	convert : function() {
-		var icsData = document.getElementById("icsData").value;
-		this._json = "[";
-		icsArray = icsData.split("BEGIN:VEVENT");
+	convert() {
+		var icsArray = this.source.value.split("BEGIN:VEVENT");
 		icsArray.shift();
 		for (var i = 0; i < icsArray.length; i++) {
 			var lines = icsArray[i].split("\n");
 			lines.shift();
-			this._json += "{\n";
-			for (var j = 0; j < lines.length; j ++) {
-				this.convertLine(lines[j])
+			var creneau = {}
+			for (var j = 0; j < lines.length; j++) {
+				var line = lines[j].split(':');
+				if (line[0] == "DTSTART")
+					creneau.debut = line[1];
+				else if (line[0] == "DTEND")
+					creneau.fin = line[1]
+				else if (line[0] == "SUMMARY")
+					creneau.resume = line[1];
+				else if (line[0] == "LOCATION")
+					creneau.location = line[1];
+
 			}
-			this._json += "},\n"
+			this.json.push(creneau);
+			this.cible.value = JSON.stringify(this.json);
+			
 		}
-		this._json += "]";
-		document.getElementById("jsonData").value = this._json;
-	},
+	}
 
 
-	handleEvent : function() {
+	handleEvent() {
 		this.convert();
 	}
 
 }
 
+
 document.getElementById("convertir").addEventListener(
-	"click", Conversion
+	"click", new Conversion("icsData", "jsonData")
 );
